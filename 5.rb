@@ -1,8 +1,11 @@
 def sum_eq_100
   results = []
   nums = (1..9).to_a.map(&:to_s)
-  (['+', '-', ''] * 8).permutation(8).each do |opes|
-    exp = nums.zip(opes).join
+  operator_list = ['+', '-', '']
+  all_operators = operator_list
+  7.times { all_operators = all_operators.product(operator_list) }
+  all_operators.map(&:flatten).each do |operators|
+    exp = nums.zip(operators).join
     results.push(exp) if eval(exp) == 100
   end
   results
